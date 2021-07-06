@@ -1,0 +1,45 @@
+---
+jobs:
+  - name: repipe-sandbox
+    serial: true
+    plan:
+      - get: automation
+      - get: config
+      - set_pipeline: deploy-sandbox
+        file: automation/ci/deploy-infra/pipeline.yml
+        var_files:
+          - automation/ci/deploy-infra/config/versions.yml
+          - config/sandbox/settings.yml
+        vars:
+          env_name: sandbox
+          next_env: staging
+
+  - name: repipe-staging
+    serial: true
+    plan:
+      - get: automation-staging
+      - get: config
+      - set_pipeline: deploy-staging
+        file: automation/ci/deploy-infra/pipeline.yml
+        var_files:
+          - automation/ci/deploy-infra/config/versions.yml
+          - config/staging/settings.yml
+        vars:
+          env_name: staging
+
+resources:
+  - name: automation
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:gstackio/deploy-automation.git
+      branch: master
+      private_key: ((github-private-key))
+
+  - name: config
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:gstackio/deploy-config.git
+      branch: master
+      private_key: ((github-private-key))

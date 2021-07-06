@@ -1,0 +1,21 @@
+---
+jobs:
+  - (( append ))
+  - name: ship-it
+    plan:
+      - in_parallel:
+          - get: automation
+            passed: [ deploy ]
+
+      - put: ((next_env))-automation
+        params:
+          repository: automation
+
+resources:
+  - (( append ))
+  - name: ((next_env))-automation
+    type: git
+    source:
+      uri: git@github.com:gstackio/deploy-automation.git
+      branch: ((next_env))
+      private_key: ((github-private-key))
