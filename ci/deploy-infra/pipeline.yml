@@ -5,15 +5,16 @@ jobs:
     plan:
       - get: automation
       - get: config
+      - get: image
       - task: deploy
-        iamge: image
+        image: image
         config:
           platform: linux
           inputs:
-            - name: automatioin
+            - name: automation
             - name: config
           params:
-            COLOR: dummy
+            COLOR: ((color))
             ENV_NAME: sandbox
             VERSION: ((component-version))
           run:
@@ -31,13 +32,21 @@ jobs:
 resources:
   - name: automation
     type: git
+    icon: github
     source:
+      uri: git@github.com:gstackio/deploy-automation.git
       branch: master
+      private_key: ((github-private-key))
 
   - name: config
     type: git
+    icon: github
+    source:
+      uri: git@github.com:gstackio/deploy-config.git
+      private_key: ((github-private-key))
 
   - name: image
     type: registry-image
+    icon: docker
     source:
       repository: busybox
