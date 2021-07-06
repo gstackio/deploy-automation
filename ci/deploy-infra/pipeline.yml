@@ -15,7 +15,7 @@ jobs:
             - name: config
           params:
             COLOR: ((color))
-            ENV_NAME: sandbox
+            ENV_NAME: (env_name)
             VERSION: ((component-version))
           run:
             path: sh
