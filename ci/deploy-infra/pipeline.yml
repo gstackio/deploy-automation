@@ -1,0 +1,43 @@
+---
+jobs:
+  - name: deploy
+    serial: true
+    plan:
+      - get: automation
+      - get: config
+      - task: deploy
+        iamge: image
+        config:
+          platform: linux
+          inputs:
+            - name: automatioin
+            - name: config
+          params:
+            COLOR: dummy
+            ENV_NAME: sandbox
+            VERSION: ((component-version))
+          run:
+            path: sh
+            args:
+              - -ec
+              - |
+                echo "Deploying..."
+                echo "color:    '${COLOR}'"
+                echo "env_name: '${ENV_NAME}'"
+                echo "version:  '${VERSION}'"
+                sleep 5
+                echo OK!
+
+resources:
+  - name: automation
+    type: git
+    source:
+      branch: master
+
+  - name: config
+    type: git
+
+  - name: image
+    type: registry-image
+    source:
+      repository: busybox
