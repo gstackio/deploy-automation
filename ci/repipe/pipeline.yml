@@ -5,7 +5,9 @@ jobs:
     plan:
       - in_parallel:
           - get: automation
+            trigger: true
           - get: config
+            trigger: true
           - get: image
 
       - task: prepare-pipeline
@@ -32,7 +34,9 @@ jobs:
     plan:
       - in_parallel:
           - get: staging-automation
+            trigger: true
           - get: config
+            trigger: true
           - get: image
 
       - task: prepare-pipeline
@@ -62,7 +66,9 @@ jobs:
       - in_parallel:
           - get: automation
             resource: prod-automation
+            trigger: true
           - get: config
+            trigger: true
           - get: image
 
       - task: prepare-pipeline
@@ -117,6 +123,7 @@ resources:
       file:        triggers/deploy-sandbox-concourse-training
       private_key: ((github-private-key))
       git_user:    "((git-commit-name)) <((git-commit-email))>"
+      initial_version: 1.0.0
 
   - name: trigger-staging
     type: semver
@@ -127,6 +134,7 @@ resources:
       file:        triggers/deploy-staging-concourse-training
       private_key: ((github-private-key))
       git_user:    "((git-commit-name)) <((git-commit-email))>"
+      initial_version: 1.0.0
 
   - name: trigger-prod
     type: semver
@@ -137,6 +145,7 @@ resources:
       file:        triggers/deploy-prod-concourse-training
       private_key: ((github-private-key))
       git_user:    "((git-commit-name)) <((git-commit-email))>"
+      initial_version: 1.0.0
 
   - name: config
     type: git
