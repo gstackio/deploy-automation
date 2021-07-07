@@ -17,7 +17,7 @@ jobs:
   - name: repipe-staging
     serial: true
     plan:
-      - get: automation-staging
+      - get: staging-automation
       - get: config
       - set_pipeline: deploy-staging
         file: automation/ci/deploy-infra/pipeline.yml
