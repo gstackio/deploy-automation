@@ -36,6 +36,14 @@ resources:
       branch: master
       private_key: ((github-private-key))
 
+  - name: staging-automation
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:gstackio/deploy-automation.git
+      branch: staging
+      private_key: ((github-private-key))
+
   - name: config
     type: git
     icon: github
