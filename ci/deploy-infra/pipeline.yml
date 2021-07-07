@@ -35,7 +35,7 @@ resources:
     icon: github
     source:
       uri: git@github.com:gstackio/deploy-automation.git
-      branch: master
+      branch: ((source_branch))
       private_key: ((github-private-key))
 
   - name: config

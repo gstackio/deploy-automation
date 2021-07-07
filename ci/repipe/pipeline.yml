@@ -21,6 +21,7 @@ jobs:
           - config/sandbox/settings.yml
         vars:
           env_name: sandbox
+          source_branch: master
           next_env: staging
 
   - name: repipe-staging
@@ -46,6 +47,7 @@ jobs:
           - config/staging/settings.yml
         vars:
           env_name: staging
+          source_branch: staging
           next_env: prod
 
   - name: repipe-prod
@@ -70,6 +72,7 @@ jobs:
           - config/prod/settings.yml
         vars:
           env_name: prod
+          source_branch: prod
 
 resources:
   - name: automation
