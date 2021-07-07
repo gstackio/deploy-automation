@@ -26,6 +26,20 @@ jobs:
           - config/staging/settings.yml
         vars:
           env_name: staging
+          next_env: prod
+
+  - name: repipe-prod
+    serial: true
+    plan:
+      - get: prod-automation
+      - get: config
+      - set_pipeline: deploy-prod
+        file: automation/ci/deploy-infra/pipeline.yml
+        var_files:
+          - automation/ci/deploy-infra/config/versions.yml
+          - config/prod/settings.yml
+        vars:
+          env_name: prod
 
 resources:
   - name: automation
