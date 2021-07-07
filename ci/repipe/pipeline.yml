@@ -37,7 +37,7 @@ jobs:
           automation: staging-automation
         params:
           ENV_NAME: staging
-        file: automation/ci/repipe/tasks/prepare-pipeline.yml
+        file: staging-automation/ci/repipe/tasks/prepare-pipeline.yml
 
       - set_pipeline: deploy-staging
         file: prepared-pipeline/assembled-pipeline.yml
