@@ -3,6 +3,8 @@ jobs:
   - name: deploy
     serial: true
     plan:
+      - get: trigger
+        trigger: true
       - get: automation
       - get: config
       - get: image
@@ -30,6 +32,17 @@ jobs:
                 echo OK!
 
 resources:
+
+  - name: trigger
+    type: semver
+    source:
+      driver:      git
+      uri:         git@github.com:gstackio/gk-pipelines-compass.git
+      branch:      master
+      file:        triggers/deploy-((env_name))-concourse-training
+      private_key: ((github-private-key))
+      git_user:    "((git-commit-name)) <((git-commit-email))>"
+
   - name: automation
     type: git
     icon: github
