@@ -5,6 +5,15 @@ jobs:
     plan:
       - get: automation
       - get: config
+
+      - task: prepare-pipeline
+        image: image
+        input_mapping:
+          automation: staging-automation
+        params:
+          ENV_NAME: sandbox
+        file: automation/ci/repipe/tasks/prepare-pipeline.yml
+
       - set_pipeline: deploy-sandbox
         file: automation/ci/deploy-infra/pipeline.yml
         var_files:
@@ -19,8 +28,17 @@ jobs:
     plan:
       - get: staging-automation
       - get: config
+
+      - task: prepare-pipeline
+        image: image
+        input_mapping:
+          automation: staging-automation
+        params:
+          ENV_NAME: staging
+        file: automation/ci/repipe/tasks/prepare-pipeline.yml
+
       - set_pipeline: deploy-staging
-        file: automation/ci/deploy-infra/pipeline.yml
+        file: prepared-pipeline/assembled-pipeline.yml
         var_files:
           - automation/ci/deploy-infra/config/versions.yml
           - config/staging/settings.yml
