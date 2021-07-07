@@ -42,7 +42,7 @@ jobs:
       - set_pipeline: deploy-staging
         file: prepared-pipeline/assembled-pipeline.yml
         var_files:
-          - automation/ci/deploy-infra/config/versions.yml
+          - staging-automation/ci/deploy-infra/config/versions.yml
           - config/staging/settings.yml
         vars:
           env_name: staging
