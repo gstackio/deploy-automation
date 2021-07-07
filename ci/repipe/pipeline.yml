@@ -119,6 +119,7 @@ resources:
 
   - name: trigger-sandbox
     type: semver
+    icon: play-circle-outline
     source:
       driver:      git
       uri:         git@github.com:gstackio/gk-pipelines-compass.git
@@ -131,6 +132,7 @@ resources:
 
   - name: trigger-staging
     type: semver
+    icon: play-circle-outline
     source:
       driver:      git
       uri:         git@github.com:gstackio/gk-pipelines-compass.git
@@ -143,6 +145,7 @@ resources:
 
   - name: trigger-prod
     type: semver
+    icon: play-circle-outline
     source:
       driver:      git
       uri:         git@github.com:gstackio/gk-pipelines-compass.git

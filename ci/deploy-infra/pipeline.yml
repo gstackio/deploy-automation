@@ -35,6 +35,7 @@ resources:
 
   - name: trigger
     type: semver
+    icon: play-circle-outline
     source:
       driver:      git
       uri:         git@github.com:gstackio/gk-pipelines-compass.git
