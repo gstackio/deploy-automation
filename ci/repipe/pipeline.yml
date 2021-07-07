@@ -3,8 +3,10 @@ jobs:
   - name: repipe-sandbox
     serial: true
     plan:
-      - get: automation
-      - get: config
+      - in_parallel:
+          - get: automation
+          - get: config
+          - get: image
 
       - task: prepare-pipeline
         image: image
@@ -24,8 +26,10 @@ jobs:
   - name: repipe-staging
     serial: true
     plan:
-      - get: staging-automation
-      - get: config
+      - in_parallel:
+          - get: staging-automation
+          - get: config
+          - get: image
 
       - task: prepare-pipeline
         image: image
@@ -47,8 +51,10 @@ jobs:
   - name: repipe-prod
     serial: true
     plan:
-      - get: prod-automation
-      - get: config
+      - in_parallel:
+          - get: prod-automation
+          - get: config
+          - get: image
 
       - task: prepare-pipeline
         image: image
@@ -98,3 +104,9 @@ resources:
       uri: git@github.com:gstackio/deploy-config.git
       branch: master
       private_key: ((github-private-key))
+
+  - name: image
+    type: registry-image
+    icon: docker
+    source:
+      repository: gstack/gk-ops
