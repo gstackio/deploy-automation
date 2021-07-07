@@ -52,14 +52,13 @@ jobs:
     serial: true
     plan:
       - in_parallel:
-          - get: prod-automation
+          - get: automation
+            resource: prod-automation
           - get: config
           - get: image
 
       - task: prepare-pipeline
         image: image
-        input_mapping:
-          automation: prod-automation
         params:
           ENV_NAME: prod
         file: automation/ci/repipe/tasks/prepare-pipeline.yml
