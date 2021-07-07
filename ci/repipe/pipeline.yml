@@ -7,6 +7,7 @@ jobs:
           - get: automation
             trigger: true
           - get: config
+            resource: sandbox-config
             trigger: true
           - get: image
 
@@ -36,6 +37,7 @@ jobs:
           - get: staging-automation
             trigger: true
           - get: config
+            resource: staging-config
             trigger: true
           - get: image
 
@@ -68,6 +70,7 @@ jobs:
             resource: prod-automation
             trigger: true
           - get: config
+            resource: prod-config
             trigger: true
           - get: image
 
@@ -147,13 +150,35 @@ resources:
       git_user:    "((git-commit-name)) <((git-commit-email))>"
       initial_version: 1.0.0
 
-  - name: config
+  - name: sandbox-config
     type: git
     icon: github
     source:
       uri: git@github.com:gstackio/deploy-config.git
       branch: master
       private_key: ((github-private-key))
+      paths:
+        - sandbox/*
+
+  - name: staging-config
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:gstackio/deploy-config.git
+      branch: master
+      private_key: ((github-private-key))
+      paths:
+        - staging/*
+
+  - name: prod-config
+    type: git
+    icon: github
+    source:
+      uri: git@github.com:gstackio/deploy-config.git
+      branch: master
+      private_key: ((github-private-key))
+      paths:
+        - prod/*
 
   - name: image
     type: registry-image
