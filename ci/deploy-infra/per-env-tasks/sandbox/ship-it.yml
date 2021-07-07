@@ -1,7 +1,8 @@
 ---
 jobs:
   - (( append ))
-  - name: ship-it
+  - name: ship-to-((next_env))
+    old_name: ship-it
     plan:
       - in_parallel:
           - get: automation
